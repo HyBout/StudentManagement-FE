@@ -6,7 +6,7 @@ import './assets/css/style.css';
 const app = Vue.createApp(App);
 app.config.globalProperties.gUserName = '';
 app.config.globalProperties.gUserType = -1;
-app.config.globalProperties.base_url = 'https://baohuy-server.onrender.com';
+app.config.globalProperties.base_url = 'http://localhost:3000';
 app.use(router);
 app.mount('#app');
 

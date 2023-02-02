@@ -808,30 +808,18 @@ export default {
          *
          */
         async add_done() {
-            let sentinel = this.public_studentList[0].mahs;
-            for (let i = 1; i < this.public_studentList.length; i++) {
-                const element = this.public_studentList[i];
-                if (sentinel < element.mahs) sentinel = element.mahs;
-            }
-
-            let last_id = String(sentinel).substring(2, 5);
-            last_id = parseInt(last_id) + 1;
-            if (last_id < 10) last_id = '00' + String(last_id);
-            else if (last_id >= 10 && last_id <= 99)
-                last_id = '0' + String(last_id);
-            else last_id = String(last_id);
-
             const found = this.public_classList.some(
-                (el) => el.tenlop === this.add_stdDetail.grade
-            );
+                    (el) => el.tenlop === this.add_stdDetail.grade
+                );
             let gradeID = this.add_stdDetail.grade;
-            if (!found) {
-                gradeID = null;
-            } else {
-                gradeID = 'L' + gradeID;
-            }
-            const new_student = {
-                MAHS: 'HS' + last_id,
+                if (!found) {
+                    gradeID = null;
+                } else {
+                    gradeID = 'L' + gradeID;
+                }
+
+            let new_student = {
+                MAHS: null,
                 HOTEN: this.add_stdDetail.name,
                 GIOITINH: this.add_stdDetail.gender,
                 NGAYSINH: this.add_stdDetail.birthdate,
@@ -839,6 +827,27 @@ export default {
                 EMAIL: this.add_stdDetail.email,
                 MALOP: gradeID,
             };
+
+            if (this.public_studentList.length === 0) {
+                new_student.MAHS = 'HS001'
+            }
+            else {
+                
+                let sentinel = this.public_studentList[0].mahs;
+                for (let i = 1; i < this.public_studentList.length; i++) {
+                    const element = this.public_studentList[i];
+                    if (sentinel < element.mahs) sentinel = element.mahs;
+                }
+
+                let last_id = String(sentinel).substring(2, 5);
+                last_id = parseInt(last_id) + 1;
+                if (last_id < 10) last_id = '00' + String(last_id);
+                else if (last_id >= 10 && last_id <= 99)
+                    last_id = '0' + String(last_id);
+                else last_id = String(last_id);
+
+                new_student.MAHS = 'HS' + last_id
+            }
             const new_data = JSON.stringify(new_student);
             await fetch(this.base_url + `/hocsinh/create?data=${new_data}`)
                 .then((response) => response.json())

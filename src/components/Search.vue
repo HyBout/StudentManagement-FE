@@ -4,8 +4,7 @@
         <div class="text">
             <h1>Tra cứu thông tin học sinh</h1>
             <h3>
-                Nhập vào tên học sinh hoặc mã số học sinh. Bạn có thể chọn lớp ở
-                nút phía dưới
+                Nhập vào tên học sinh để tìm kiếm thông tin và điểm trung bình học kì của học sinh
             </h3>
         </div>
         <!-- <form action="" method=""> -->
